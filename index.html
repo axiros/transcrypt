@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="John Doe" />
+  <meta name="dcterms.date" content="2005-03-22" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script src="img/jquery.js"></script>
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<h1>
+<span style="color: #8bd124">Transcrypt </span>/ Redux / FRP
+</h1>
+<h2>
+Reactive Isomorphic Web Components <br>In <span style="color: #8bd124">Python</span> Only
+</h2>
+<br><br><br>
+<h5 style="color:gray">
+PyMunich, 2016-10-30
+</h3>
+<p><br><br><b style="color: #999; font-size: 20px"> - <code>Esc</code>: Overview - <code>s</code>: Present - <code>STRG-` + STRG-[1-9] to sketch, STRG-[-=] width</code></p>
+<p>Themes: <a href="?theme=white">white</a> <a href="?theme=black">black</a> <a href="?theme=solarized">solarized</a> </b></p>
+</section>
+<section><section id="meta" class="titleslide slide level1"><h1>Meta</h1></section><section id="speaker" class="slide level2">
+<h1><span class="citation" data-cites="Speaker">@Speaker</span></h1>
+<ul>
+<li>Gunther Klessinger, gk@axiros.com</li>
+<li>Disclaimer: 30 years of programming, 15 in Python <em>but</em>:
+<ul>
+<li>No(!) computer scientist (just a Physicist)</li>
+<li>No(!) js guru</li>
+</ul></li>
+<li>Heading Innovation at a small to medium (80 people worldwide) Python shop</li>
+<li>Founded by myself in 2002</li>
+<li>We do 85% Python, Rest C and, well, Javascript for the frontends</li>
+<li>Prof. service intense products for around 200 telecommunication operators</li>
+<li>Which expect min. 5 years of support(...)</li>
+</ul>
+</section><section id="purpose-of-talk" class="slide level2">
+<h1>Purpose of Talk</h1>
+<p><strong>Promote Transcrypt.</strong></p>
+<p>This talk is primarily to motivate a new way of web development, including</p>
+<ul>
+<li>serious / commercial / large scale</li>
+<li>supportable</li>
+<li>multi membered</li>
+<li>state of the art projects,</li>
+<li>including newest javascript designs and libs.</li>
+</ul>
+<p>While extensions are welcome, Transcrypt is ready for that and deserves far more attention<strong>!</strong></p>
+<figure>
+<img src="./img/gh.png" />
+</figure>
+<div style="font-size: 25px;">
+<i>I'm NOT the author of Transcrypt, just a convinced user, lacking time to contribute much.</i>
+</div>
+</section></section>
+<section><section id="transcrypt" class="titleslide slide level1"><h1>Transcrypt</h1></section><section id="lean-fast-open-python-to-javascript-transpiler" class="slide level2">
+<h1>Lean, Fast, Open Python to Javascript Transpiler</h1>
+<p><strong>God Is In The Details</strong>: There are <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">quite</a> some <a href="http://www.infoworld.com/article/3033047/javascript/4-tools-to-convert-python-to-javascript-and-back-again.html">alternatives</a> but Transcrypt's design choices might convince you immediately:</p>
+<ul>
+<li>Fast server sided transpilation based on</li>
+<li>A transparent AST walker</li>
+<li>Into lean readable Javascript</li>
+</ul>
+<p>Key Features: See <a href="http://www.transcrypt.org/home">here</a>.</p>
+</section><section id="embrace-not-trying-to-replace-javascript" class="slide level2">
+<h1><strong>Embrace</strong>, Not <i style="font-size: 20">[Trying to]</i> <em>Replace</em> Javascript</h1>
+<p>Claim: Transcrypt enables you to think purely <strong>Pythonic</strong> about your browser code (while actually using modern javascript libs).</p>
+</section></section>
+<section><section id="is-it-really" class="titleslide slide level1"><h1>Is It Really?</h1></section><section id="first-showcase" class="slide level2">
+<h1>First Showcase</h1>
+<p>Taking the python version of the first py/js perf googled, removing cmd line parsing only:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="dv">13</span>..DE:<span class="op">~/</span>demos<span class="op">/</span>q<span class="co"># python solver.py</span>
+N<span class="op">-</span>Queens Found <span class="dv">2680</span> Solutions <span class="op">in</span> <span class="fl">2.</span>93557906151s
+<span class="dv">13</span>..DE:<span class="op">~/</span>demos<span class="op">/</span>q<span class="co"># python3 solver.py</span>
+N<span class="op">-</span>Queens Found <span class="dv">2680</span> Solutions <span class="op">in</span> <span class="fl">3.</span>415844440460205s
+<span class="co"># Then13..DE:~/demos/q# t solver.py</span>
+Transcrypt (TM) Python to JavaScript Small Sane Subset Saving result <span class="op">in</span>: <span class="op">/</span>root<span class="op">/</span>demos<span class="op">/</span>q<span class="op">/</span>__javascript__<span class="op">/</span>solver.js</code></pre></div>
+<p>this</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="dv">13</span>..<span class="at">DE</span><span class="op">:~</span><span class="ss">/demos/q</span># cat <span class="va">index</span>.<span class="at">html</span>
+<span class="op">&lt;</span>html<span class="op">&gt;</span>
+    <span class="op">&lt;</span>script   src<span class="op">=</span><span class="st">&quot;./__javascript__/solver.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">    &lt;script   src=&quot;./__javascript__/orig.js&quot;&gt;&lt;/script</span><span class="op">&gt;</span>
+<span class="op">&lt;</span>body<span class="op">&gt;</span>
+check console
+<span class="op">&lt;</span><span class="ss">/body&gt;</span></code></pre></div>
+<p>open index.html in browser:</p>
+<table>
+<tr>
+<td>
+<img src="./img/q1.png" height="500px">
+</td>
+<td>
+<img src="./img/q2.png" height="500px">
+</td>
+</tr>
+</table>
+</section><section id="section" class="slide level2">
+<h1><img src="img/faster.png" /></h1>
+</section><section id="section-1" class="slide level2">
+<h1><img src="img/amaz.png" /></h1>
+</section><section id="section-2" class="slide level2">
+<h1><img src="img/etsy.png" /></h1>
+</section><section id="section-3" class="slide level2">
+<h1></h1>
+</section><section id="devops" class="slide level2">
+<h1>DevOps</h1>
+<h1>
+<a href="space.html">Your Management Wants It</a>
+</h1>
+<p><img src="./img/devops.png" style="border: 0px; width: 600px; background: none"/></p>
+</section><section id="how-to-get-there" class="slide level2">
+<h1>How To Get There:</h1>
+<p>Simple. Checking the <a href="http://www.slideshare.net/fabrice.bernhard/devops-wonder">usual</a> guidelines given...</p>
+</section><section id="solve-some-minor-communication-problems" class="slide level2">
+<h1>1. Solve Some Minor Communication Problems</h1>
+<figure>
+<img src="img/stall.png" />
+</figure>
+</section><section id="resolve-a-silo-or-two" class="slide level2">
+<h1>2. Resolve a Silo or Two</h1>
+<figure>
+<img src="img/silos.png" />
+</figure>
+</section><section id="implement-a-few-simple-processes.." class="slide level2">
+<h1>3. Implement a Few Simple Processes..</h1>
+<figure>
+<img src="img/gardner.png" />
+</figure>
+</section><section id="and-address-some-related-security-problems" class="slide level2">
+<h1>4. ...And Address Some Related Security Problems</h1>
+<figure>
+<img src="img/unicorn.png" />
+</figure>
+</section><section id="and-further-evolution-is..." class="slide level2">
+<h1>And Further Evolution is<a href="javascript: swap_evol()">...</a></h1>
+<p><img onclick="swap_evol();" src="img/ev1.png" class="evol1"></img></p>
+</section></section>
+    </div>
+  </div>
+
+  
+
+    <!-- sketch  on screen -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="reveal.js/sketch.js"></script>
+    <script src="reveal.js/dazzleSketch.js"></script>
+
+
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.js"></script>
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+          slideNumber: true,
+          history: true,
+          transition: 'fade', // default/none/fade/slide/convex/concave/zoom
+
+          transitionSpeed: 'slow', // fast default
+          backgroundTransition: 'fade', // default/none/fade/slide/convex/concave/zoom
+          parallaxBackgroundImage:'img/stars.png',
+        parallaxBackgroundSize: '4000px 4000px', // CSS syntax, e.g. "2100px 900px"
+        parallaxBackgroundHorizontal: null,
+    parallaxBackgroundVertical: null,
+    // Number of slides away from the current that are visible
+    viewDistance: 8,
+
+				// Optional reveal.js plugins
+				dependencies: [
+          			{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true }
+				]
+			});
+
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            var theme=getParameterByName('theme');
+            if ( theme ) {
+                document.getElementById('theme').href = 'css/theme/' + theme + '.css';
+            }
+
+		</script>
+
+    </body>
+</html>
