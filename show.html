@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<h1>
+<span style="color: #8bd124">Transcrypt </span>/ Redux / FRP
+</h1>
+<h2>
+Reactive Isomorphic Web Components <br>In <span style="color: #8bd124">Python</span> Only
+</h2>
+<br><br><br>
+<h5 style="color:gray">
+PyMunich, 2016-10-30
+</h3>
+<p><br><br><b style="color: #999; font-size: 20px"> - <code>Esc</code>: Overview - <code>s</code>: Present - <code>STRG-` + STRG-[1-9] to sketch, STRG-[-=] width</code></p>
+<p>Themes: <a href="?theme=white">white</a> <a href="?theme=black">black</a> <a href="?theme=solarized">solarized</a> </b></p>
+</section>
+<section><section id="meta" class="titleslide slide level1"><h1>Meta</h1></section><section id="speaker" class="slide level2">
+<h1><span class="citation" data-cites="Speaker">@Speaker</span></h1>
+<ul>
+<li>Gunther Klessinger, gk@axiros.com</li>
+<li>Disclaimer: 30 years of programming, 15 in Python <em>but</em>:
+<ul>
+<li>No(!) computer scientist (just a Physicist)</li>
+<li>No(!) js guru</li>
+</ul></li>
+<li>Heading Innovation at a small to medium (80 people worldwide) Python shop</li>
+<li>Founded by myself in 2002</li>
+<li>We do 85% Python, Rest C and, well, Javascript for the frontends</li>
+<li>Prof. service intense products for around 200 telecommunication operators</li>
+<li>Which expect min. 5 years of support(...)</li>
+</ul>
+</section><section id="purpose-of-talk" class="slide level2">
+<h1>Purpose of Talk</h1>
+<p><strong>Promote Transcrypt.</strong></p>
+<p>This talk is primarily to motivate a new way of web development, including</p>
+<ul>
+<li>serious / commercial / large scale</li>
+<li>supportable</li>
+<li>multi membered</li>
+<li>state of the art projects,</li>
+<li>including newest javascript designs and libs.</li>
+</ul>
+<p>While extensions are welcome, Transcrypt is ready for that and deserves far more attention<strong>!</strong></p>
+<figure>
+<img src="./img/gh.png" />
+</figure>
+<div style="font-size: 25px;">
+<i>I'm NOT the author of Transcrypt, just a convinced user, lacking time to contribute much.</i>
+</div>
+</section></section>
+<section><section id="transcrypt" class="titleslide slide level1"><h1>Transcrypt</h1></section><section id="lean-fast-open-python-to-javascript-transpiler" class="slide level2">
+<h1>Lean, Fast, Open Python to Javascript Transpiler</h1>
+<p><strong>God Is In The Details</strong>: There are <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">quite</a> some <a href="http://www.infoworld.com/article/3033047/javascript/4-tools-to-convert-python-to-javascript-and-back-again.html">alternatives</a> but Transcrypt's design choices might convince you immediately:</p>
+<ul>
+<li>Fast server sided transpilation based on</li>
+<li>A transparent AST walker</li>
+<li>Into lean readable Javascript</li>
+</ul>
+<p>Key Features: See <a href="http://www.transcrypt.org/home">here</a>.</p>
+</section><section id="embrace-not-trying-to-replace-javascript" class="slide level2">
+<h1><strong>Embrace</strong>, Not <i style="font-size: 20">[Trying to]</i> <em>Replace</em> Javascript</h1>
+<p>Claim: Transcrypt enables you to think purely <strong>Pythonic</strong> about your browser code (while actually using modern javascript libs).</p>
+</section></section>
+<section><section id="is-it-really" class="titleslide slide level1"><h1>Is It Really?</h1></section><section id="first-showcase" class="slide level2">
+<h1>First Showcase</h1>
+<p>Python version of the <a href="http://www.cdotson.com/2014/12/node-js-vs-python-vs-pypy-a-simple-performance-comparison-updated/">first</a> py/js perf found, removing cmd line parsing only:</p>
+<table>
+<tr>
+<td>
+<img src="./img/pyq.png" height="500px">
+</td>
+</tr>
+<tr>
+<td>
+<img src="./img/q1.png" height="500px">
+</td>
+</tr>
+<tr>
+<td>
+<img src="./img/q2.png" height="500px">
+</td>
+</tr>
+</table>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,472 @@
+file: Module 
+	body: list 
+		element: Assign 
+			targets: list 
+				element: Name 
+					id: str = __author__
+					ctx: Store 
+			value: Str 
+				s: str = Chad Dotson
+		element: FunctionDef 
+			name: str = valid_position
+			args: arguments 
+				args: list 
+					element: arg 
+						arg: str = n_queen_positions
+						annotation: NoneType = None
+					element: arg 
+						arg: str = new_position
+						annotation: NoneType = None
+				vararg: NoneType = None
+				kwonlyargs: list 
+				kw_defaults: list 
+				kwarg: NoneType = None
+				defaults: list 
+			body: list 
+				element: For 
+					target: Name 
+						id: str = existing_position
+						ctx: Store 
+					iter: Name 
+						id: str = n_queen_positions
+						ctx: Load 
+					body: list 
+						element: If 
+							test: BoolOp 
+								op: Or 
+								values: list 
+									element: Compare 
+										left: Subscript 
+											value: Name 
+												id: str = existing_position
+												ctx: Load 
+											slice: Index 
+												value: Num 
+													n: int = 1
+											ctx: Load 
+										ops: list 
+											element: Eq 
+										comparators: list 
+											element: Subscript 
+												value: Name 
+													id: str = new_position
+													ctx: Load 
+												slice: Index 
+													value: Num 
+														n: int = 1
+												ctx: Load 
+									element: Compare 
+										left: Subscript 
+											value: Name 
+												id: str = existing_position
+												ctx: Load 
+											slice: Index 
+												value: Num 
+													n: int = 0
+											ctx: Load 
+										ops: list 
+											element: Eq 
+										comparators: list 
+											element: Subscript 
+												value: Name 
+													id: str = new_position
+													ctx: Load 
+												slice: Index 
+													value: Num 
+														n: int = 0
+												ctx: Load 
+							body: list 
+								element: Return 
+									value: NameConstant 
+										value: bool = False
+							orelse: list 
+						element: Assign 
+							targets: list 
+								element: Name 
+									id: str = row_difference
+									ctx: Store 
+							value: Call 
+								func: Name 
+									id: str = abs
+									ctx: Load 
+								args: list 
+									element: BinOp 
+										left: Subscript 
+											value: Name 
+												id: str = new_position
+												ctx: Load 
+											slice: Index 
+												value: Num 
+													n: int = 1
+											ctx: Load 
+										op: Sub 
+										right: Subscript 
+											value: Name 
+												id: str = existing_position
+												ctx: Load 
+											slice: Index 
+												value: Num 
+													n: int = 1
+											ctx: Load 
+								keywords: list 
+						element: Assign 
+							targets: list 
+								element: Name 
+									id: str = column_difference
+									ctx: Store 
+							value: Call 
+								func: Name 
+									id: str = abs
+									ctx: Load 
+								args: list 
+									element: BinOp 
+										left: Subscript 
+											value: Name 
+												id: str = new_position
+												ctx: Load 
+											slice: Index 
+												value: Num 
+													n: int = 0
+											ctx: Load 
+										op: Sub 
+										right: Subscript 
+											value: Name 
+												id: str = existing_position
+												ctx: Load 
+											slice: Index 
+												value: Num 
+													n: int = 0
+											ctx: Load 
+								keywords: list 
+						element: If 
+							test: Compare 
+								left: Name 
+									id: str = row_difference
+									ctx: Load 
+								ops: list 
+									element: Eq 
+								comparators: list 
+									element: Name 
+										id: str = column_difference
+										ctx: Load 
+							body: list 
+								element: Return 
+									value: NameConstant 
+										value: bool = False
+							orelse: list 
+					orelse: list 
+				element: Return 
+					value: NameConstant 
+						value: bool = True
+			decorator_list: list 
+			returns: NoneType = None
+		element: FunctionDef 
+			name: str = solve
+			args: arguments 
+				args: list 
+					element: arg 
+						arg: str = n_queens_size
+						annotation: NoneType = None
+					element: arg 
+						arg: str = n_queen_positions
+						annotation: NoneType = None
+					element: arg 
+						arg: str = current_column
+						annotation: NoneType = None
+				vararg: NoneType = None
+				kwonlyargs: list 
+				kw_defaults: list 
+				kwarg: NoneType = None
+				defaults: list 
+			body: list 
+				element: If 
+					test: BoolOp 
+						op: And 
+						values: list 
+							element: Compare 
+								left: Name 
+									id: str = current_column
+									ctx: Load 
+								ops: list 
+									element: Eq 
+								comparators: list 
+									element: Name 
+										id: str = n_queens_size
+										ctx: Load 
+							element: Compare 
+								left: Call 
+									func: Name 
+										id: str = len
+										ctx: Load 
+									args: list 
+										element: Name 
+											id: str = n_queen_positions
+											ctx: Load 
+									keywords: list 
+								ops: list 
+									element: Eq 
+								comparators: list 
+									element: Name 
+										id: str = n_queens_size
+										ctx: Load 
+					body: list 
+						element: Return 
+							value: List 
+								elts: list 
+									element: Name 
+										id: str = n_queen_positions
+										ctx: Load 
+								ctx: Load 
+					orelse: list 
+				element: Assign 
+					targets: list 
+						element: Name 
+							id: str = solutions
+							ctx: Store 
+					value: List 
+						elts: list 
+						ctx: Load 
+				element: For 
+					target: Name 
+						id: str = row
+						ctx: Store 
+					iter: Call 
+						func: Name 
+							id: str = range
+							ctx: Load 
+						args: list 
+							element: Num 
+								n: int = 0
+							element: Name 
+								id: str = n_queens_size
+								ctx: Load 
+						keywords: list 
+					body: list 
+						element: Assign 
+							targets: list 
+								element: Name 
+									id: str = new_position
+									ctx: Store 
+							value: Tuple 
+								elts: list 
+									element: Name 
+										id: str = current_column
+										ctx: Load 
+									element: Name 
+										id: str = row
+										ctx: Load 
+								ctx: Load 
+						element: If 
+							test: Call 
+								func: Name 
+									id: str = valid_position
+									ctx: Load 
+								args: list 
+									element: Name 
+										id: str = n_queen_positions
+										ctx: Load 
+									element: Name 
+										id: str = new_position
+										ctx: Load 
+								keywords: list 
+							body: list 
+								element: Assign 
+									targets: list 
+										element: Name 
+											id: str = new_queens_positions
+											ctx: Store 
+									value: Subscript 
+										value: Name 
+											id: str = n_queen_positions
+											ctx: Load 
+										slice: Slice 
+											lower: NoneType = None
+											upper: NoneType = None
+											step: NoneType = None
+										ctx: Load 
+								element: Expr 
+									value: Call 
+										func: Attribute 
+											value: Name 
+												id: str = new_queens_positions
+												ctx: Load 
+											attr: str = append
+											ctx: Load 
+										args: list 
+											element: Name 
+												id: str = new_position
+												ctx: Load 
+										keywords: list 
+								element: Assign 
+									targets: list 
+										element: Name 
+											id: str = solution
+											ctx: Store 
+									value: Call 
+										func: Name 
+											id: str = solve
+											ctx: Load 
+										args: list 
+											element: Name 
+												id: str = n_queens_size
+												ctx: Load 
+											element: Name 
+												id: str = new_queens_positions
+												ctx: Load 
+											element: BinOp 
+												left: Name 
+													id: str = current_column
+													ctx: Load 
+												op: Add 
+												right: Num 
+													n: int = 1
+										keywords: list 
+								element: If 
+									test: Compare 
+										left: Name 
+											id: str = solution
+											ctx: Load 
+										ops: list 
+											element: IsNot 
+										comparators: list 
+											element: NameConstant 
+												value: NoneType = None
+									body: list 
+										element: Expr 
+											value: Call 
+												func: Attribute 
+													value: Name 
+														id: str = solutions
+														ctx: Load 
+													attr: str = extend
+													ctx: Load 
+												args: list 
+													element: Name 
+														id: str = solution
+														ctx: Load 
+												keywords: list 
+									orelse: list 
+							orelse: list 
+					orelse: list 
+				element: Return 
+					value: Name 
+						id: str = solutions
+						ctx: Load 
+			decorator_list: list 
+			returns: NoneType = None
+		element: Import 
+			names: list 
+				element: alias 
+					name: str = time
+					asname: NoneType = None
+		element: Assign 
+			targets: list 
+				element: Name 
+					id: str = t1
+					ctx: Store 
+			value: Call 
+				func: Attribute 
+					value: Name 
+						id: str = time
+						ctx: Load 
+					attr: str = time
+					ctx: Load 
+				args: list 
+				keywords: list 
+		element: Assign 
+			targets: list 
+				element: Name 
+					id: str = solutions
+					ctx: Store 
+			value: Call 
+				func: Name 
+					id: str = solve
+					ctx: Load 
+				args: list 
+					element: Num 
+						n: int = 11
+					element: List 
+						elts: list 
+						ctx: Load 
+					element: Num 
+						n: int = 0
+				keywords: list 
+		element: Assign 
+			targets: list 
+				element: Name 
+					id: str = dt
+					ctx: Store 
+			value: BinOp 
+				left: Call 
+					func: Attribute 
+						value: Name 
+							id: str = time
+							ctx: Load 
+						attr: str = time
+						ctx: Load 
+					args: list 
+					keywords: list 
+				op: Sub 
+				right: Name 
+					id: str = t1
+					ctx: Load 
+		element: Assign 
+			targets: list 
+				element: Name 
+					id: str = msg
+					ctx: Store 
+			value: Call 
+				func: Attribute 
+					value: Str 
+						s: str = N-Queens Found {0} Solutions in {1}s
+					attr: str = format
+					ctx: Load 
+				args: list 
+					element: Call 
+						func: Name 
+							id: str = len
+							ctx: Load 
+						args: list 
+							element: Name 
+								id: str = solutions
+								ctx: Load 
+						keywords: list 
+					element: Call 
+						func: Name 
+							id: str = str
+							ctx: Load 
+						args: list 
+							element: Name 
+								id: str = dt
+								ctx: Load 
+						keywords: list 
+				keywords: list 
+		element: Try 
+			body: list 
+				element: Expr 
+					value: Call 
+						func: Name 
+							id: str = alert
+							ctx: Load 
+						args: list 
+							element: Name 
+								id: str = msg
+								ctx: Load 
+						keywords: list 
+			handlers: list 
+				element: ExceptHandler 
+					type: NoneType = None
+					name: NoneType = None
+					body: list 
+						element: Expr 
+							value: Call 
+								func: Name 
+									id: str = print
+									ctx: Load 
+								args: list 
+									element: Name 
+										id: str = msg
+										ctx: Load 
+								keywords: list 
+			orelse: list 
+			finalbody: list 
