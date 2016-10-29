@@ -37,7 +37,7 @@
 		__nest__ (time, '', __init__ (__world__.time));
 		var t1 = time.time ();
 		var solutions = solve (11, list ([]), 0);
-		var dt = time.time () - t1;
+		var dt = round (time.time () - t1, 2);
 		var msg = 'N-Queens Found {0} Solutions in {1}s'.format (len (solutions), str (dt));
 		try {
 			alert (msg);

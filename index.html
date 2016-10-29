@@ -87,7 +87,7 @@ PyMunich, 2016-10-30
 </section></section>
 <section><section id="transcrypt" class="titleslide slide level1"><h1>Transcrypt</h1></section><section id="lean-fast-open-python-to-javascript-transpiler" class="slide level2">
 <h1>Lean, Fast, Open Python to Javascript Transpiler</h1>
-<p><strong>God Is In The Details</strong>: There are <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">quite</a> some <a href="http://www.infoworld.com/article/3033047/javascript/4-tools-to-convert-python-to-javascript-and-back-again.html">alternatives</a> but Transcrypt's design choices might convince you immediately:</p>
+<p><strong>God Is In The Details</strong>: There are <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">quite</a> some <a href="http://www.infoworld.com/article/3033047/javascript/4-tools-to-convert-python-to-javascript-and-back-again.html">alternatives</a>, some <a href="http://pypyjs.org/">way</a> larger and ambitious - but Transcrypt's design choices might convince you immediately:</p>
 <ul>
 <li>Fast server sided transpilation based on</li>
 <li>A transparent AST walker</li>
@@ -100,24 +100,57 @@ PyMunich, 2016-10-30
 </section></section>
 <section><section id="is-it-really" class="titleslide slide level1"><h1>Is It Really?</h1></section><section id="first-showcase" class="slide level2">
 <h1>First Showcase</h1>
-<p>Python version of the <a href="http://www.cdotson.com/2014/12/node-js-vs-python-vs-pypy-a-simple-performance-comparison-updated/">first</a> py/js perf found, removing cmd line parsing only:</p>
+<p>Python version of the <a href="http://www.cdotson.com/2014/12/node-js-vs-python-vs-pypy-a-simple-performance-comparison-updated/">first</a> py/js perf found, removing cmd line parsing <a href="https://github.com/axiros/transcrypt/blob/master/src/demo_1_queens/solver.py">only</a>:</p>
 <table>
 <tr>
 <td>
 <img src="./img/pyq.png" height="500px">
 </td>
-</tr>
-<tr>
 <td>
 <img src="./img/q1.png" height="500px">
 </td>
 </tr>
 <tr>
+<td style="vertical-align: top">
+manual js:<br><br>
+</td>
 <td>
 <img src="./img/q2.png" height="500px">
 </td>
 </tr>
 </table>
+<ul>
+<li>Python number simple crunching algo, unmodified in source(<strong>!</strong>), ran in CPython and Browser.</li>
+<li>Same results, performance 10 times <a href="http://stackoverflow.com/a/28000307/4583360">better</a> in browser.</li>
+<li>Building done by CPython, no js on server needed.</li>
+<li>~ Factor 5 penalty versus handcrafted js: Deal, for all the Python goodies available (and direct js is always at hand, should you miss it)</li>
+</ul>
+</section><section id="generated-javascript" class="slide level2">
+<h1>Generated Javascript</h1>
+<figure>
+<img src="./img/q3.png" />
+</figure>
+<p>Similarities purely accidental. <strong>NOT</strong> ;-)</p>
+</section><section id="megabytes-of-core-libs-shipped-to-the-client" class="slide level2">
+<h1><a href="http://pypyjs.org/">Megabytes</a> of Core Libs Shipped to the Client?</h1>
+<pre><code>~/reveal/transcrypt/src/demo_1_queens/__javascript__ $ ls -lth solver*
+26K Oct 30 01:00 solver.min.js
+70K Oct 30 01:00 solver.js</code></pre>
+<p>That is all.</p>
+</section><section id="api-stability" class="slide level2">
+<h1>API Stability</h1>
+<p>Imho the most important point for professional / commercial applicability:</p>
+Out of <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">these</a> it is the only (applicable) one where bad surprises after updates are excluded by design: <a href="https://docs.python.org/3/c-api/index.html">This</a> is the binding authority.
+<div style="font-size: 20px">
+<i>and there is reason to believe they learned the <a href="https://felipec.wordpress.com/2013/10/07/the-linux-way/">lesson</a> to never ever do break APIs again</i>
+</div>
+<p>⭆ An invest in writing library modules in Transcrypt is as future proof as an invest in Python modules on the server side.</p>
+</section><section id="not-convinced-the-transcrypt-testsuite" class="slide level2">
+<h1>Not Convinced? The Transcrypt Testsuite</h1>
+<p>These are run in CPython, then in the browser.<br> <code>autoTester.check(...)</code> asserts 100% identical results.</p>
+<figure>
+<img src="./img/autot.png" />
+</figure>
 </section></section>
     </div>
   </div>

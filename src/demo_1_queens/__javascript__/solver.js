@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2016-10-29 23:53:10
+// Transcrypt'ed from Python, 2016-10-30 01:00:09
 function solver () {
 	var __symbols__ = ['__esv5__'];
 	var __all__ = {};
@@ -2424,7 +2424,7 @@ function solver () {
 		__nest__ (time, '', __init__ (__world__.time));
 		var t1 = time.time ();
 		var solutions = solve (11, list ([]), 0);
-		var dt = time.time () - t1;
+		var dt = round (time.time () - t1, 2);
 		var msg = 'N-Queens Found {0} Solutions in {1}s'.format (len (solutions), str (dt));
 		try {
 			alert (msg);
