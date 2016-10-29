@@ -71,80 +71,16 @@ Key Features: See [here](http://www.transcrypt.org/home).
 Claim: Transcrypt enables you to think purely **Pythonic** about your browser code (while actually using modern javascript libs).
 
 
+
+
 # Is It Really?
 
 ## First Showcase
 
-Taking the python version of the first py/js perf googled, removing cmd line parsing only:
+Python version of the [first](http://www.cdotson.com/2014/12/node-js-vs-python-vs-pypy-a-simple-performance-comparison-updated/) py/js perf found, removing cmd line parsing only:
 
-```python
-13..DE:~/demos/q# python solver.py
-N-Queens Found 2680 Solutions in 2.93557906151s
-13..DE:~/demos/q# python3 solver.py
-N-Queens Found 2680 Solutions in 3.415844440460205s
-# Then13..DE:~/demos/q# t solver.py
-Transcrypt (TM) Python to JavaScript Small Sane Subset Saving result in: /root/demos/q/__javascript__/solver.js
-```
-this
-```js
-13..DE:~/demos/q# cat index.html
-<html>
-    <script   src="./__javascript__/solver.js"></script>
-    <script   src="./__javascript__/orig.js"></script>
-<body>
-check console
-</body>
-
-```
-open index.html in browser:
-
-<table><tr><td><img src="./img/q1.png" height="500px"></td><td><img src="./img/q2.png" height="500px"></td></tr></table>
-
-
-
-
-
-
-
-
-
-
-## ![](img/faster.png)
-
-## ![](img/amaz.png)
-
-## ![](img/etsy.png)
-
-
-##
-
-## DevOps
-
-<h1> <a href="space.html">Your Management Wants It</a></h1>
-<img src="./img/devops.png" style="border: 0px; width: 600px; background: none"/>
-
-## How To Get There:
-
-Simple. Checking the [usual](http://www.slideshare.net/fabrice.bernhard/devops-wonder) guidelines given...
-
-## 1. Solve Some Minor Communication Problems
-![](img/stall.png)
-
-## 2. Resolve a Silo or Two
-
-![](img/silos.png)
-
-
-## 3. Implement a Few Simple Processes..
-
-![](img/gardner.png)
-
-
-## 4. ...And Address Some Related Security Problems
-
-![](img/unicorn.png)
-
-
-## And Further Evolution is<a href="javascript: swap_evol()">...</a>
-
-<img onclick="swap_evol();" src="img/ev1.png" class="evol1"></img>
+<table><tr>
+<td><img src="./img/pyq.png" height="500px"></td></tr><tr>
+<td><img src="./img/q1.png" height="500px"></td></tr><tr>
+<td><img src="./img/q2.png" height="500px"></td>
+</tr></table>
