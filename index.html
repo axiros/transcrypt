@@ -85,7 +85,7 @@ PyMunich, 2016-10-30
 <i>I'm NOT the author of Transcrypt, just a convinced user, lacking time to contribute much.</i>
 </div>
 </section></section>
-<section><section id="transcrypt" class="titleslide slide level1"><h1>Transcrypt</h1></section><section id="lean-fast-open-python-to-javascript-transpiler" class="slide level2">
+<section><section id="part-i-transcrypt" class="titleslide slide level1"><h1>Part I: Transcrypt</h1></section><section id="lean-fast-open-python-to-javascript-transpiler" class="slide level2">
 <h1>Lean, Fast, Open Python to Javascript Transpiler</h1>
 <p><strong>God Is In The Details</strong>: There are <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">quite</a> some <a href="http://www.infoworld.com/article/3033047/javascript/4-tools-to-convert-python-to-javascript-and-back-again.html">alternatives</a>, some <a href="http://pypyjs.org/">way</a> larger and ambitious - but Transcrypt's design choices might convince you immediately:</p>
 <ul>
@@ -104,26 +104,17 @@ PyMunich, 2016-10-30
 <table>
 <tr>
 <td>
-<img src="./img/pyq.png" height="500px">
+<img src="./img/qpy.png" height="500px">
 </td>
 <td>
 <img src="./img/q1.png" height="500px">
 </td>
 </tr>
-<tr>
-<td style="vertical-align: top">
-manual js:<br><br>
-</td>
-<td>
-<img src="./img/q2.png" height="500px">
-</td>
-</tr>
 </table>
 <ul>
-<li>Python number simple crunching algo, unmodified in source(<strong>!</strong>), ran in CPython and Browser.</li>
-<li>Same results, performance 10 times <a href="http://stackoverflow.com/a/28000307/4583360">better</a> in browser.</li>
-<li>Building done by CPython, no js on server needed.</li>
-<li>~ Factor 5 penalty versus handcrafted js: Deal, for all the Python goodies available (and direct js is always at hand, should you miss it)</li>
+<li>C-Python simple number crunching algo, runs unmodified(<strong>!</strong>) in Browser, with</li>
+<li>Same results, performance nearly 10 times <a href="http://stackoverflow.com/a/28000307/4583360">better</a></li>
+<li>Instant transpilation, done by CPython, no js on server needed.</li>
 </ul>
 </section><section id="generated-javascript" class="slide level2">
 <h1>Generated Javascript</h1>
@@ -136,9 +127,19 @@ manual js:<br><br>
 <pre><code>~/reveal/transcrypt/src/demo_1_queens/__javascript__ $ ls -lth solver*
 26K Oct 30 01:00 solver.min.js
 70K Oct 30 01:00 solver.js</code></pre>
-<p>That is all.</p>
+<p>That is all. Any <code>import mylib</code> compiled into on demand.</p>
+</section><section id="performance" class="slide level2">
+<h1>Performance</h1>
+<p><img src="./img/q1.png" height="200px"> <img src="./img/q2.png" height="200px"></p>
+<p>~ Factor 5 penalty versus handcrafted js.</p>
+<p>Deal, for all the Python expressivity / builtin wtf-avoidance available.<br> <em>And direct js is always at hand, should you miss it.</em></p>
+</section><section id="features" class="slide level2">
+<h1>Features</h1>
+<h1>
+Check <a href="http://sterlicht.alwaysdata.net/transcrypt.org/docs/html/">this</a>
+</h1>
 </section><section id="api-stability" class="slide level2">
-<h1>API Stability</h1>
+<h1><strong>API Stability</strong></h1>
 <p>Imho the most important point for professional / commercial applicability:</p>
 Out of <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">these</a> it is the only (applicable) one where bad surprises after updates are excluded by design: <a href="https://docs.python.org/3/c-api/index.html">This</a> is the binding authority.
 <div style="font-size: 20px">
@@ -151,7 +152,57 @@ Out of <a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages
 <figure>
 <img src="./img/autot.png" />
 </figure>
+</section><section id="still-not-convinced" class="slide level2">
+<h1>Still not Convinced?</h1>
+<p>There is</p>
+<pre><code>foo = [i for i in range(10) if i in mydict]
+__pragma__(&#39;js&#39;, &#39;{}&#39;, &#39;&#39;&#39;
+    &lt;any native javascript code doing sth with `foo`
+    generating new local assignments&gt;&#39;&#39;&#39;)
+&lt;continuing in python&gt;</code></pre>
+<p>within any local namespace. <br> Again: Assigning in python, operation in js and vice versa:</p>
+<p>All fluent and w/o problems.</p>
+<p><strong>Handy for starters but after a while you don't need it anymore, realizing that Transcrypt can do it <em>all</em>.</strong></p>
 </section></section>
+<section><section id="limitations" class="titleslide slide level1"><h1>Limitations</h1></section><section id="python-a-small-number-of-performance-tradeoffs" class="slide level2">
+<h1>Python: A Small Number of Performance Tradeoffs</h1>
+<p>Mainly:</p>
+<ul>
+<li><code>[a]</code> not working when a is negative (overloading any array op deemed too expensiv). <code>[a:-a]</code> working fine.</li>
+<li><code>def foo(**kw)</code> kwargs off by default, too bloated. Can be enabled via CLI switch or local &quot;pragma&quot;. Tip: pass dicts and you'll stay out of trouble.</li>
+<li>exec, eval: Should be clear, we are not shoehorning a Python runtime into the browser...</li>
+</ul>
+</section><section id="ecosystem" class="slide level2">
+<h1>Ecosystem</h1>
+<p>Transcrypt is about Python, the way of thinking and expressing ideas.</p>
+<p>Transcrypt is <em>not</em> about Python, the ecosystem. (At last currently, author focusses 100% on supporting all the Python mechanics, not the libs).</p>
+<p>The ecosystem at hand is <a href="https://npmsearch.com/?q=reactive">here</a> - not pip.</p>
+<p>And this is a <strong>perfect match</strong>: Python's code structuring and derivation / multi inheritance possibilities ((local) classes, metaclasses, decorators, inline functions(...)) and its well designed effectivity in mangling datastructures combined with all the workhorses for (v)DOM manipulation, templates, events (...) of the js world.</p>
+<p><strong>Producing Javascript - while writing and thinking Python.</strong></p>
+</section><section id="authors-vision" class="slide level2">
+<h1><a href="http://pythonpodcast.com/jacques-de-hooge-transcrypt.html">Author</a>'s Vision</h1>
+<p><a href="http://pythonpodcast.com/jacques-de-hooge-transcrypt.html"><img src="./img/jac.png"></a></p>
+<div style="font-size: 20px">
+<i>Tip: Do <em>not</em> try to educate Jacques about PEP-8 in Transcrypt core modules.<br>He is fluent in more computer languages like some of you have years on this planet ;-)</i>
+</div>
+</section><section id="section" class="slide level2">
+<h1></h1>
+<div style="position: absolute; top: 0px; overflow: auto;  width:100%;height:1200px;">
+<p>In the first place I think it is important to highlight the <strong>overall design goal</strong> of Transcrypt, which is:</p>
+<p>&quot;having a Py to JS compiler that produces code that can compete with <strong>native</strong> JS code with respect to <strong>speed</strong>, <strong>compactness</strong> and <strong>interoperability</strong> with any JS library, so is seriously usable for the <strong>production of large web applications</strong>&quot;</p>
+<p>As a consequence of this, <strong>some features</strong> of Python are <strong>off limits</strong>, most notable &quot;eval&quot; and &quot;exec&quot;, which would imply slow, bulky in-browser compilation. Also a number of dynamic mechanisms have been simplified to achieve more speed (such as the descriptor mechanism).</p>
+<p>Meanwhile features like <strong>multiple inheritance</strong> and <strong>operator overloading</strong> were considered important enough to have them in, but in an efficient way, operator overloading e.g. being <strong>locally switchable</strong>.</p>
+<p><strong>Sourcemaps</strong> and <strong>highly readable</strong> JS targets facilitate easy <strong>debugging</strong>. Native JS code can be included anywhere, but rarely needs to, as things like for-loops, i++ etc. are optimized.</p>
+<p>Secondly the design decision to favor unimpeded access to JS libs over the use of Py libs deserves some explanation</p>
+<p>The web developers community has produced a large number of high quality libraries. For any serious web development tool, <strong>unimpeded use of these libraries</strong> is an absolute necessity.</p>
+<hr />
+<p>This is not to say that porting CPython libs wouldn't be useful! Having a Python style regex / re library would be great, as would be having a relevant part of sys available. Libs like e.g. libs math , random and time are already there, as is the humble turtle module. Message: <strong>If you want to port a CPython lib to Transcrypt: this is highly welcomed.</strong> Please include an autotest for it as well.</p>
+<p>Keep your libraries lean and fast, using underlying JS functionality as much as possible. If some features have to be left out to achieve this it's ok. Please document which features are present by including working code fragments using them in your autotest, which will at the same time be usable as documentation.</p>
+<p>For ports of libraries that are part of the CPython distro: If an autotest with good coverage is included and it runs correctly and efficiently on Windows and Linux / OsX, inclusion in the Transcrypt distribution is likely. To make this possible your lib should be contributed under the <strong>Apache 2 license</strong>. You can name it exactly the same as its CPython counterpart, since it will be reached via a different, preferred search path.</p>
+<p>For ports of libraries that are available on PyPi separately: Give it a unique name (not the same as the corresponding CPython lib) that somehow lays the connection between the original library and Transcrypt (like e.g. is the case with Numscrypt) and make it pip-installable from PyPi, having at least Transcrypt as a keyword to make it findable.</p>
+</div>
+</section></section>
+<section><section id="part-ii-reactive-isomorphic-components" class="titleslide slide level1"><h1>Part II: Reactive Isomorphic Components</h1></section></section>
     </div>
   </div>
 
