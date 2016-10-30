@@ -40,41 +40,42 @@ Reactive Isomorphic Web Components <br>In <span style="color: #8bd124">Python</s
 PyMunich, 2016-10-30
 </h3>
 <p><br><br><b style="color: #999; font-size: 20px"> - <code>Esc</code>: Overview - <code>s</code>: Present - <code>STRG-` + STRG-[1-9] to sketch, STRG-[-=] width</code></p>
-<p>Themes: <a href="?theme=white">white</a> <a href="?theme=black">black</a> <a href="?theme=solarized">solarized</a> </b></p>
+<p></b></p>
 </section>
 <section><section id="meta" class="titleslide slide level1"><h1>Meta</h1></section><section id="speaker" class="slide level2">
 <h1><span class="citation" data-cites="Speaker">@Speaker</span></h1>
 <ul>
-<li>Gunther Klessinger, gk@axiros.com</li>
-<li>Disclaimer: 30 years of programming, 15 in Python <em>but</em>:
+<li>Gunther.Klessinger@<strong>axiros</strong>.com or <a href="https://github.com/QQuick/Transcrypt">here</a></li>
+<li>Disclaimers: 30 years of programming, 15 in Python <em>but</em>:
 <ul>
-<li>No(!) computer scientist (just a Physicist)</li>
-<li>No(!) js guru</li>
+<li>No computer scientist (just a theor. physicist, plagued by constantly trying to falsify common assertions)</li>
+<li>No js guru, not the author of Transcrypt, just a happy convert from Riot(1).</li>
 </ul></li>
-<li>Heading Innovation at a small to medium (80 people worldwide) Python shop</li>
-<li>Founded by myself in 2002</li>
+<li>Heading Innovation at a small to medium (80 people worldwide) Python shop, founded by myself in 2002</li>
+<li>Current field of work: Mainly <img style="vertical-align: middle; padding: 3px; margin: 0px; border: 0px;" src="./img/ax-containers.png" height="30px"></li>
 <li>We do 85% Python, Rest C and, well, Javascript for the frontends</li>
 <li>Prof. service intense products for around 200 telecommunication operators</li>
 <li>Which expect min. 5 years of support(...)</li>
 </ul>
+<div style="text-align: left; font-size: 20px">
+<p>1 <a href="http://riotjs.com/">RiotJS</a>: Components, vDom, One Way Binding. Opinion: RiotJS/ReactJS = Python/Java</p>
+</div>
 </section><section id="purpose-of-talk" class="slide level2">
 <h1>Purpose of Talk</h1>
 <p><strong>Promote Transcrypt.</strong></p>
-<p>This talk is primarily to motivate a new way of web development, including</p>
+<p>This talk is primarily to advocate Web Development for</p>
 <ul>
 <li>serious / commercial / large scale</li>
 <li>supportable</li>
 <li>multi membered</li>
 <li>state of the art projects,</li>
-<li>including newest javascript designs and libs.</li>
+<li>based on most modern javascript designs and libs,</li>
 </ul>
-<p>While extensions are welcome, Transcrypt is ready for that and deserves far more attention<strong>!</strong></p>
+<p><em>while thinking and writing <strong>Python</strong> for backend <strong>and</strong> frontend.</em></p>
+<p>Transcrypt is ready for that and deserves far more attention<strong>!</strong></p>
 <figure>
 <img src="./img/gh.png" />
 </figure>
-<div style="font-size: 25px;">
-<i>I'm NOT the author of Transcrypt, just a convinced user, lacking time to contribute much.</i>
-</div>
 </section></section>
 <section><section id="part-i-transcrypt" class="titleslide slide level1"><h1>Part I: Transcrypt</h1></section><section id="lean-fast-open-python-to-javascript-transpiler" class="slide level2">
 <h1>Lean, Fast, Open Python to Javascript Transpiler</h1>
@@ -87,7 +88,35 @@ PyMunich, 2016-10-30
 <p>Key Features: See <a href="http://www.transcrypt.org/home">here</a>.</p>
 </section><section id="embrace-not-trying-to-replace-javascript" class="slide level2">
 <h1><strong>Embrace</strong>, Not <i style="font-size: 20">[Trying to]</i> <em>Replace</em> Javascript</h1>
-<p>Claim: Transcrypt enables you to think purely <strong>Pythonic</strong> about your browser code (while actually using modern javascript libs).</p>
+<p>Claim: Transcrypt enables you to think purely <strong>Pythonic</strong> about your browser code (while actually <em>using</em> <a href="https://github.com/axiros/misc_transcrypt/blob/master/doc/kendo/src/ch4/kendo_base.py">any</a> javascript lib).</p>
+<table>
+<tr>
+<td style="width: 60%">
+<pre><code>~/demo/ch3 $ cat datasource.py
+from kendo_base import KendoComponent
+
+class DataSource(KendoComponent):
+    &#39;&#39;&#39;
+    http://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#fields-options
+    &#39;&#39;&#39;
+    _k_cls = kendo.data.DataSource
+    data = None
+    transport = None
+    _functions = [&#39;read&#39;]
+    def __init__(self, opts):
+        od = dict(opts)
+        url = od.pop(&#39;url&#39;, None)
+        if url:
+            od[&#39;transport&#39;] = {&#39;read&#39;: {&#39;url&#39;: url, &#39;dataType&#39;: &#39;jsonp&#39;}}
+        KendoComponent.__init__(self, opts)
+        self.read()
+</code></pre>
+</td>
+<td style="width: 300px !important; vertical-align: middle">
+<img height="200px" width="300px" src="https://raw.githubusercontent.com/axiros/misc_transcrypt/master/doc/kendo/c4_2.png">
+</td>
+</tr>
+</table>
 </section></section>
 <section><section id="is-it-really" class="titleslide slide level1"><h1>Is It Really?</h1></section><section id="first-showcase" class="slide level2">
 <h1>First Showcase</h1>
@@ -125,10 +154,11 @@ PyMunich, 2016-10-30
 <p>~ Factor 5 penalty versus handcrafted js.</p>
 <p>Deal, for all the Python expressivity / builtin wtf-avoidance available.<br> <em>And direct js is always at hand, should you miss it.</em></p>
 </section><section id="features" class="slide level2">
-<h1>Features</h1>
+<h1>Features:</h1>
 <h1>
 Check <a href="http://sterlicht.alwaysdata.net/transcrypt.org/docs/html/">this</a>
 </h1>
+<p>my <a href="./space.html">decision</a> after 3, 4 days of playing around...</p>
 </section><section id="api-stability" class="slide level2">
 <h1><strong>API Stability</strong></h1>
 <p>Imho the most important point for professional / commercial applicability:</p>
@@ -174,7 +204,7 @@ __pragma__(&#39;js&#39;, &#39;{}&#39;, &#39;&#39;&#39;
 <h1><a href="http://pythonpodcast.com/jacques-de-hooge-transcrypt.html">Author</a>'s Vision</h1>
 <p><a href="http://pythonpodcast.com/jacques-de-hooge-transcrypt.html"><img src="./img/jac.png"></a></p>
 <div style="font-size: 20px">
-<i>Tip: Do <em>not</em> try to educate Jacques about PEP-8 in Transcrypt core modules.<br>He is fluent in more computer languages like some of you have years on this planet ;-)</i>
+<i>Tip: Do <em>not</em> try to educate Jacques about PEP-8 in Transcrypt core modules.<br>He is fluent in more computer languages than some of you have years on this planet ;-)</i>
 </div>
 </section><section id="section" class="slide level2">
 <h1></h1>
@@ -193,7 +223,99 @@ __pragma__(&#39;js&#39;, &#39;{}&#39;, &#39;&#39;&#39;
 <p>For ports of libraries that are available on PyPi separately: Give it a unique name (not the same as the corresponding CPython lib) that somehow lays the connection between the original library and Transcrypt (like e.g. is the case with Numscrypt) and make it pip-installable from PyPi, having at least Transcrypt as a keyword to make it findable.</p>
 </div>
 </section></section>
-<section><section id="part-ii-reactive-isomorphic-components" class="titleslide slide level1"><h1>Part II: Reactive Isomorphic Components</h1></section></section>
+<section><section id="part-ii-reactive-isomorphic-web-components" class="titleslide slide level1"><h1>Part II:<br>Reactive Isomorphic Web Components</h1></section><section id="components" class="slide level2">
+<h1>Components</h1>
+<p>Encapsulate Functionality, Composable</p>
+<p><img src="./img/comp1.png" height="500px"></p>
+</section><section id="frp" class="slide level2">
+<h1>FRP</h1>
+<p>Functional Reactive Programming</p>
+<table>
+<tr style="text-align: top;">
+<td>
+<img width="500px" style="border: 0px; padding: 30px;", src="./img/frp1.png" border="0"/>
+</td>
+<td style="vertical-align: middle;">
+<ul>
+<li><strong>One-way state transitions</strong></li>
+<li><strong>Stream Processing</strong></li>
+<li>Immutable data</li>
+<li>Pure functions</li>
+<li>[Static typing]</li>
+</ul>
+</td>
+</tr>
+</table>
+<p>&quot;Dead&quot;: 2-way binding (angular), direct DOM interaction (read and write)</p>
+</section><section id="stream-processing" class="slide level2">
+<h1>Stream Processing</h1>
+<p>Don't focus on singular events, start <a href="https://cycle.js.org/components.html">thinking</a> in event streams: Mouse moves, input field entries (...)</p>
+<p><a href="http://rxmarbles.com/">Demo1</a> <a href="https://css-tricks.com/debouncing-throttling-explained-examples/">Demo2</a></p>
+<p>Stream processing libs handle buffering of data and decoupling of state, in order to handle event streams just like normal objects, providing functions like filter, map, throttle, merge (...)</p>
+</section><section id="backend-comparable-redesigns-everywhere" class="slide level2">
+<h1>Backend: Comparable <a href="https://www.youtube.com/watch?v=fU9hR3kiOK0">(Re)designs</a> Everywhere</h1>
+<table>
+<tr>
+<td>
+<img src="./img/str_s.png" height="500px">
+</td>
+<td style="vertical-align: middle">
+⭆
+</td>
+<td>
+<img src="./img/str_s2.png" height="500px">
+</td>
+</tr>
+</table>
+</section><section id="redux" class="slide level2">
+<h1>Redux</h1>
+<p><a href="http://redux.js.org/docs/introduction/ThreePrinciples.html">Single Source</a> of Truth for Application State.</p>
+<p><br> Application wide event stream (merged component event streams, merged with data updates from the server are &quot;reduced&quot; into state updates of an application wide store. Whose updates are oberserved, resulting into component (view) updates, resulting in the user creating new events [endless loop]</p>
+</section><section id="isomorphic" class="slide level2">
+<h1>Isomorphic</h1>
+<ol type="1">
+<li><a href="https://www.lullabot.com/articles/what-is-an-isomorphic-application">Why</a></li>
+<li>Key Message: &quot;Less code, as it is shared by both the client and the server.&quot;</li>
+</ol>
+<p><strong>Transcrypt</strong> enables you to write components run on server and client:</p>
+<pre><code>from wax.base.redux import ReduxComponent as RC                                    
+from wax.base.render import PlainStateRenderer as PSR                              
+
+class Services(RC, PSR):                                                           
+    # default store inits:                                                         
+    ico        = &#39;faves&#39;                                                           
+    limit      = 10 # max records loaded. put to 10000 on prod!                    
+    page_size  = 25                                                                
+    data       = None # pointer to current data                                    
+    data_id    = None # kept in the store                                          
+    _app       = None # ref to app, managing redux store, streams and routes       
+
+    def preregister(self):                                                         
+        &#39;&#39;&#39;get_data: e.g. websocket emit on the client,                            
+           direct data fetch on the server&#39;&#39;&#39;                                      
+        self.get_data(&#39;static&#39;, &#39;meta_data&#39;)                                       
+
+    def render(self):                                                              
+        # never invoked on server                                                  
+        console.log(&#39;in render of services&#39;)                                       
+        # use widget library of choice to render updated data                      
+
+    def get_data(self, mode, type):                                                
+        self._app.server_fetch(mode, type)                                         
+
+# -----------------------------------------------------------------------------
+__pragma__ (&#39;ifdef&#39;, &#39;on_server&#39;)                                                  
+# -----------------------------------------------------------------------------
+# imported by server App:                                                          
+class Services(Services):                                                          
+    @classmethod                                                                   
+    def get_data(cls, mode, type):                                                 
+        # direct database access                                </code></pre>
+</section></section>
+<section><section id="thank-you" class="titleslide slide level1"><h1>Thank You!</h1></section><section id="questions" class="slide level2">
+<h1>Questions</h1>
+<p>Welcome (also via <a href="https://github.com/QQuick/Transcrypt/issues">Transcrypt</a> on GitHub) - but might see <code>.merge(daily_work_stream)</code> ;-)</p>
+</section></section>
     </div>
   </div>
 

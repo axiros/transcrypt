@@ -9,27 +9,25 @@
 - ``s``: Present
 - ``STRG-` + STRG-[1-9] to sketch, STRG-[-=] width``
 
-
-Themes:
-[white](?theme=white)
-[black](?theme=black)
-[solarized](?theme=solarized)
 </b>
 
 # Meta
 
 
 ## @Speaker
-- Gunther Klessinger, gk@axiros.com
-- Disclaimer: 30 years of programming, 15 in Python *but*:
-    - No(!) computer scientist (just a Physicist)
-    - No(!) js guru
-- Heading Innovation at a small to medium (80 people worldwide) Python shop
-- Founded by myself in 2002
+- Gunther.Klessinger@**axiros**.com or [here](https://github.com/QQuick/Transcrypt)
+- Disclaimers: 30 years of programming, 15 in Python *but*:
+    - No computer scientist (just a theor. physicist, plagued by constantly trying to falsify common assertions)
+    - No js guru, not the author of Transcrypt, just a happy convert from Riot(1).
+- Heading Innovation at a small to medium (80 people worldwide) Python shop, founded by myself in 2002
+- Current field of work: Mainly <img style="vertical-align: middle; padding: 3px; margin: 0px; border: 0px;" src="./img/ax-containers.png" height="30px">
 - We do 85% Python, Rest C and, well, Javascript for the frontends
 - Prof. service intense products for around 200 telecommunication operators
 - Which expect min. 5 years of support(...)
 
+<div style="text-align: left; font-size: 20px">
+1 [RiotJS](http://riotjs.com/): Components, vDom, One Way Binding. Opinion: RiotJS/ReactJS = Python/Java
+</div>
 
 ## Purpose of Talk
 
@@ -37,19 +35,20 @@ Themes:
 **Promote Transcrypt.**
 
 
-This talk is primarily to motivate a new way of web development, including
+This talk is primarily to advocate Web Development for
 
 - serious / commercial / large scale
 - supportable
 - multi membered
 - state of the art projects,
-- including newest javascript designs and libs.
+- based on most modern javascript designs and libs,
 
-While extensions are welcome, Transcrypt is ready for that and deserves far more attention**!**
+*while thinking and writing **Python** for backend **and** frontend.*
+
+Transcrypt is ready for that and deserves far more attention**!**
 
 ![](./img/gh.png)
 
-<div style="font-size: 25px;"><i>I'm NOT the author of Transcrypt, just a convinced user, lacking time to contribute much.</i></div>
 
 
 # Part I: Transcrypt
@@ -68,9 +67,31 @@ Key Features: See [here](http://www.transcrypt.org/home).
 
 ## **Embrace**, Not <i style="font-size: 20">[Trying to]</i> *Replace* Javascript
 
-Claim: Transcrypt enables you to think purely **Pythonic** about your browser code (while actually using modern javascript libs).
+Claim: Transcrypt enables you to think purely **Pythonic** about your browser code (while actually *using* [any](https://github.com/axiros/misc_transcrypt/blob/master/doc/kendo/src/ch4/kendo_base.py) javascript lib).
 
+<table><tr><td style="width: 60%">
+```
+~/demo/ch3 $ cat datasource.py
+from kendo_base import KendoComponent
 
+class DataSource(KendoComponent):
+    '''
+    http://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#fields-options
+    '''
+    _k_cls = kendo.data.DataSource
+    data = None
+    transport = None
+    _functions = ['read']
+    def __init__(self, opts):
+        od = dict(opts)
+        url = od.pop('url', None)
+        if url:
+            od['transport'] = {'read': {'url': url, 'dataType': 'jsonp'}}
+        KendoComponent.__init__(self, opts)
+        self.read()
+
+```
+</td><td style="width: 300px !important; vertical-align: middle"><img height="200px" width="300px" src="https://raw.githubusercontent.com/axiros/misc_transcrypt/master/doc/kendo/c4_2.png"></td></tr></table>
 
 
 # Is It Really?
@@ -121,9 +142,13 @@ Deal, for all the Python expressivity / builtin wtf-avoidance available.<br>
 *And direct js is always at hand, should you miss it.*
 
 
-## Features
+## Features:
 
 <h1>Check [this](http://sterlicht.alwaysdata.net/transcrypt.org/docs/html/)</h1>
+
+my [decision](./space.html) after 3, 4 days of playing around...
+
+
 
 
 ## **API Stability**
@@ -190,7 +215,7 @@ And this is a **perfect match**: Python's code structuring and derivation / mult
 
 <a href="http://pythonpodcast.com/jacques-de-hooge-transcrypt.html"><img src="./img/jac.png"></a>
 
-<div style="font-size: 20px"><i>Tip: Do *not* try to educate Jacques about PEP-8 in Transcrypt core modules.<br>He is fluent in more computer languages like some of you have years on this planet ;-)</i></div>
+<div style="font-size: 20px"><i>Tip: Do *not* try to educate Jacques about PEP-8 in Transcrypt core modules.<br>He is fluent in more computer languages than some of you have years on this planet ;-)</i></div>
 
 
 ##
@@ -221,5 +246,104 @@ For ports of libraries that are available on PyPi separately: Give it a unique n
 
 </div>
 
+# Part II:<br>Reactive Isomorphic Web Components
 
-# Part II: Reactive Isomorphic Components
+## Components
+
+Encapsulate Functionality, Composable
+
+<img src="./img/comp1.png" height="500px">
+
+
+## FRP
+Functional Reactive Programming
+
+<table><tr style="text-align: top;"><td>
+<img width="500px" style="border: 0px; padding: 30px;", src="./img/frp1.png" border="0"/>
+</td><td style="vertical-align: middle;">
+* **One-way state transitions**
+* **Stream Processing**
+* Immutable data
+* Pure functions
+* [Static typing]
+</td></tr></table>
+"Dead": 2-way binding (angular), direct DOM interaction (read and write)
+
+
+## Stream Processing
+
+Don't focus on singular events, start [thinking](https://cycle.js.org/components.html) in event streams: Mouse moves, input field entries (...)
+
+[Demo1](http://rxmarbles.com/)
+[Demo2](https://css-tricks.com/debouncing-throttling-explained-examples/)
+
+Stream processing libs handle buffering of data and decoupling of state, in order to handle event streams just like normal objects, providing functions like filter, map, throttle, merge (...)
+
+
+
+## Backend: Comparable [(Re)designs](https://www.youtube.com/watch?v=fU9hR3kiOK0) Everywhere
+
+<table><tr>
+<td><img src="./img/str_s.png" height="500px"></td><td style="vertical-align: middle">⭆</td>
+<td><img src="./img/str_s2.png" height="500px"></td>
+</tr></table>
+
+
+## Redux
+
+[Single Source](http://redux.js.org/docs/introduction/ThreePrinciples.html) of Truth for Application State.
+
+<br>
+Application wide event stream (merged component event streams, merged with data updates from the server are "reduced" into state updates of an application wide store. Whose updates are oberserved, resulting into component (view) updates, resulting in the user creating new events [endless loop]
+
+
+
+## Isomorphic
+
+1. [Why](https://www.lullabot.com/articles/what-is-an-isomorphic-application)
+1. Key Message: "Less code, as it is shared by both the client and the server."
+
+**Transcrypt** enables you to write components run on server and client:
+
+
+```
+from wax.base.redux import ReduxComponent as RC                                    
+from wax.base.render import PlainStateRenderer as PSR                              
+
+class Services(RC, PSR):                                                           
+    # default store inits:                                                         
+    ico        = 'faves'                                                           
+    limit      = 10 # max records loaded. put to 10000 on prod!                    
+    page_size  = 25                                                                
+    data       = None # pointer to current data                                    
+    data_id    = None # kept in the store                                          
+    _app       = None # ref to app, managing redux store, streams and routes       
+
+    def preregister(self):                                                         
+        '''get_data: e.g. websocket emit on the client,                            
+           direct data fetch on the server'''                                      
+        self.get_data('static', 'meta_data')                                       
+
+    def render(self):                                                              
+        # never invoked on server                                                  
+        console.log('in render of services')                                       
+        # use widget library of choice to render updated data                      
+
+    def get_data(self, mode, type):                                                
+        self._app.server_fetch(mode, type)                                         
+
+# -----------------------------------------------------------------------------
+__pragma__ ('ifdef', 'on_server')                                                  
+# -----------------------------------------------------------------------------
+# imported by server App:                                                          
+class Services(Services):                                                          
+    @classmethod                                                                   
+    def get_data(cls, mode, type):                                                 
+        # direct database access                                
+```
+
+
+# Thank You!
+
+## Questions
+Welcome (also via [Transcrypt](https://github.com/QQuick/Transcrypt/issues) on GitHub) - but might see `.merge(daily_work_stream)` ;-)
