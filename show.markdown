@@ -7,8 +7,9 @@
 <br><br><b style="color: #999; font-size: 20px">
 - ``Esc``: Overview
 - ``s``: Present
-- ``arrow keys``: Navigate
-- ``STRG-` + STRG-[1-9] to sketch, STRG-[-=] width``
+- ``Arrow Keys``: Navigate
+- ``STRG-[1-9]``: Sketch
+- ``STRG-[-=]``: Width
 
 </b>
 
