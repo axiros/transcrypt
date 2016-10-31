@@ -136,10 +136,12 @@ Any `import mylib` compiled into on demand.
 <img src="./img/q1.png" height="200px">
 <img src="./img/q2.png" height="200px">
 
-~ Factor 5 penalty versus handcrafted js.
+~ Factor 3 penalty versus handcrafted js.
 
 Deal, for all the Python expressivity / builtin wtf-avoidance available.<br>
 *And direct js is always at hand, should you miss it.*
+
+Checkout `-f` fastpath also.
 
 
 ## Features:
