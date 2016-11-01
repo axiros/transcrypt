@@ -17,7 +17,7 @@
 
 
 ## @Speaker
-- Gunther.Klessinger@**axiros**.com or [here](https://github.com/QQuick/Transcrypt)
+- Gunther.Klessinger, **axiros**, ping me [here](https://github.com/QQuick/Transcrypt) about Transcrypt
 - Disclaimers: 30 years of programming, 15 in Python *but*:
     - No computer scientist (just a theor. physicist, plagued by constantly trying to falsify common assertions)
     - No js guru, not the author of Transcrypt, just a happy convert from Riot(1).
